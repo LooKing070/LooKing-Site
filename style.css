@@ -1,0 +1,338 @@
+/* ============ База ============ */
+* { -webkit-box-sizing: border-box; box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: Arial, Helvetica, sans-serif; /* только системные шрифты */
+  font-size: 15px;
+  line-height: 1.55;
+  color: #123c57;
+  background: #e4f4fc;
+  background: -webkit-gradient(linear, left top, left bottom, from(#eaf8ff), to(#d3edf9));
+  background: linear-gradient(to bottom, #eaf8ff, #d3edf9);
+  -webkit-text-size-adjust: 100%;
+}
+a { color: #0b86c2; }
+.wrap { max-width: 680px; margin: 0 auto; padding: 0 12px; }
+.clearfix:after { content: ""; display: block; clear: both; }
+
+/* ============ Глянцевая панель ============ */
+.panel {
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+  background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#e9f5fc));
+  background: linear-gradient(to bottom, #ffffff, #e9f5fc);
+  border: 1px solid #cfe8f5;
+  -webkit-border-radius: 16px;
+  border-radius: 16px;
+  -webkit-box-shadow: 0 10px 24px rgba(16,84,128,.16), inset 0 1px 0 #ffffff;
+  box-shadow: 0 10px 24px rgba(16,84,128,.16), inset 0 1px 0 #ffffff;
+}
+.panel:before { /* стеклянный блик сверху */
+  content: "";
+  position: absolute; left: 0; top: 0; right: 0; height: 40%;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,.5)), to(rgba(255,255,255,0)));
+  background: linear-gradient(to bottom, rgba(255,255,255,.5), rgba(255,255,255,0));
+  pointer-events: none;
+}
+.section { padding: 18px 16px 20px; margin-top: 18px; }
+.section h2 {
+  margin: 0 0 14px; padding-bottom: 8px;
+  font-size: 20px; color: #0a4a73;
+  border-bottom: 1px solid #d7ecf8;
+}
+.section p { margin: 0 0 12px; }
+.h-orb {
+  display: inline-block; width: 14px; height: 14px; margin-right: 8px;
+  -webkit-border-radius: 50%; border-radius: 50%;
+  background: #2fa4dd;
+  background: -webkit-gradient(radial, 35% 30%, 1, 35% 30%, 10, from(#ffffff), color-stop(.4, #a9e6ff), to(#1587c4));
+  background: radial-gradient(circle at 35% 30%, #ffffff, #a9e6ff 40%, #1587c4);
+  border: 1px solid #7cc8f0;
+  vertical-align: -1px;
+}
+
+/* ============ Верхняя панель ============ */
+.topbar {
+  padding: 10px 0; margin-bottom: 18px;
+  background: #2eb2e8;
+  background: -webkit-gradient(linear, left top, left bottom, from(#9ee1ff), color-stop(.5, #2eb2e8), to(#0e8cc7));
+  background: linear-gradient(to bottom, #9ee1ff, #2eb2e8 50%, #0e8cc7);
+  border-bottom: 1px solid #0a6da0;
+  -webkit-box-shadow: 0 6px 16px rgba(10,90,140,.35), inset 0 1px 0 rgba(255,255,255,.7);
+  box-shadow: 0 6px 16px rgba(10,90,140,.35), inset 0 1px 0 rgba(255,255,255,.7);
+}
+.logo-orb {
+  display: inline-block; width: 30px; height: 30px; margin-right: 8px;
+  line-height: 30px; text-align: center;
+  font-size: 12px; font-weight: bold; color: #03415f;
+  -webkit-border-radius: 50%; border-radius: 50%;
+  background: #2fa4dd;
+  background: -webkit-gradient(radial, 35% 28%, 2, 35% 28%, 22, from(#ffffff), color-stop(.4, #b3e9ff), to(#2fa4dd));
+  background: radial-gradient(circle at 35% 28%, #ffffff, #b3e9ff 40%, #2fa4dd);
+  border: 2px solid #ffffff;
+  vertical-align: middle;
+}
+.logo-name { color: #ffffff; font-weight: bold; font-size: 18px; text-shadow: 0 1px 2px rgba(7,60,95,.6); vertical-align: middle; }
+.topnav { float: right; }
+.topnav a {
+  display: inline-block; margin-left: 6px; padding: 5px 12px;
+  color: #ffffff; font-weight: bold; font-size: 14px; text-decoration: none;
+  -webkit-border-radius: 999px; border-radius: 999px;
+}
+.topnav a:hover, .topnav a:focus { background: rgba(255,255,255,.28); }
+
+/* ============ Герой: небо ============ */
+.sky {
+  text-align: center;
+  padding: 34px 14px 40px;
+  background: #7cc8f0;
+  background: -webkit-gradient(linear, left top, left bottom, from(#c9eeff), color-stop(.55, #7cc8f0), to(#57a8de));
+  background: linear-gradient(to bottom, #c9eeff, #7cc8f0 55%, #57a8de);
+  border-color: #8fd0f0;
+}
+.hero-in { position: relative; z-index: 2; }
+.sky h1 {
+  margin: 10px 0 6px; font-size: 36px; letter-spacing: 1px; color: #ffffff;
+  text-shadow: 0 2px 0 rgba(9,80,120,.35), 0 0 18px rgba(255,255,255,.55);
+}
+.hero-tag {
+  display: inline-block; margin: 0 0 14px; padding: 6px 14px;
+  font-weight: bold; font-size: 13px; color: #0a5a86;
+  background: #ffffff;
+  background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#dcf1fc));
+  background: linear-gradient(to bottom, #ffffff, #dcf1fc);
+  border: 1px solid #ffffff;
+  -webkit-border-radius: 999px; border-radius: 999px;
+  -webkit-box-shadow: 0 4px 10px rgba(10,90,140,.25);
+  box-shadow: 0 4px 10px rgba(10,90,140,.25);
+}
+.orb-lk {
+  display: block; width: 116px; height: 116px; margin: 0 auto 6px;
+  line-height: 112px; text-align: center;
+  font-size: 40px; font-weight: bold; color: #ffffff;
+  text-shadow: 0 2px 6px rgba(6,60,95,.55);
+  -webkit-border-radius: 50%; border-radius: 50%;
+  background: #2fa4dd;
+  background: -webkit-gradient(radial, 38% 28%, 5, 38% 28%, 84, from(#ffffff), color-stop(.3, #b3e9ff), color-stop(.72, #2fa4dd), to(#0a5e90));
+  background: radial-gradient(circle at 38% 28%, #ffffff, #b3e9ff 30%, #2fa4dd 72%, #0a5e90);
+  border: 3px solid rgba(255,255,255,.9);
+  -webkit-box-shadow: 0 14px 28px rgba(8,80,130,.4), inset 0 -10px 20px rgba(5,60,95,.35);
+  box-shadow: 0 14px 28px rgba(8,80,130,.4), inset 0 -10px 20px rgba(5,60,95,.35);
+}
+/* солнце, облака, пузыри — декор */
+.sun {
+  position: absolute; z-index: 1; top: -26px; right: -18px; width: 118px; height: 118px;
+  -webkit-border-radius: 50%; border-radius: 50%;
+  background: #ffe680;
+  background: -webkit-gradient(radial, 50% 50%, 4, 50% 50%, 58, from(#fffde8), color-stop(.5, #ffe680), to(rgba(255,230,128,0)));
+  background: radial-gradient(circle, #fffde8, #ffe680 50%, rgba(255,230,128,0));
+}
+.cloud {
+  position: absolute; z-index: 1; width: 110px; height: 30px;
+  background: #ffffff; -webkit-border-radius: 30px; border-radius: 30px; opacity: .95;
+}
+.cloud:before, .cloud:after { content: ""; position: absolute; background: #ffffff; -webkit-border-radius: 50%; border-radius: 50%; }
+.cloud:before { width: 44px; height: 44px; top: -20px; left: 16px; }
+.cloud:after  { width: 56px; height: 56px; top: -26px; left: 46px; }
+.c1 { top: 26px; left: 6%; }
+.c2 { top: 92px; right: 4%; width: 84px; height: 24px; opacity: .85; }
+.c2:before { width: 34px; height: 34px; top: -16px; left: 12px; }
+.c2:after  { width: 42px; height: 42px; top: -20px; left: 36px; }
+.c3 { bottom: 46px; left: -24px; width: 150px; height: 38px; opacity: .9; }
+.bub {
+  position: absolute; z-index: 1;
+  -webkit-border-radius: 50%; border-radius: 50%;
+  background: #cfeafa;
+  background: -webkit-gradient(radial, 32% 26%, 2, 32% 26%, 46, from(rgba(255,255,255,.95)), color-stop(.35, rgba(255,255,255,.2)), to(rgba(150,215,250,.4)));
+  background: radial-gradient(circle at 32% 26%, rgba(255,255,255,.95), rgba(255,255,255,.2) 35%, rgba(150,215,250,.4));
+  border: 1px solid rgba(255,255,255,.85);
+}
+.b1 { width: 44px; height: 44px; top: 60px; left: 10%; }
+.b2 { width: 22px; height: 22px; top: 150px; right: 12%; }
+.b3 { width: 30px; height: 30px; bottom: 70px; left: 16%; }
+.b4 { width: 14px; height: 14px; top: 110px; right: 26%; }
+.b5 { width: 56px; height: 56px; bottom: 30px; right: 8%; }
+
+/* ============ Кнопки ============ */
+.btn {
+  display: inline-block; position: relative;
+  margin: 4px 2px; padding: 10px 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px; font-weight: bold; text-decoration: none; text-align: center;
+  cursor: pointer;
+  -webkit-border-radius: 999px; border-radius: 999px;
+  border: 1px solid;
+  text-shadow: 0 1px 0 rgba(255,255,255,.5);
+}
+.btn:before { /* верхний блик */
+  content: ""; position: absolute; left: 8%; right: 8%; top: 2px; height: 45%;
+  -webkit-border-radius: 999px; border-radius: 999px;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,.85)), to(rgba(255,255,255,.05)));
+  background: linear-gradient(to bottom, rgba(255,255,255,.85), rgba(255,255,255,.05));
+  pointer-events: none;
+}
+.btn-aqua {
+  color: #053a58; border-color: #0c7fb7;
+  background: #18a9de;
+  background: -webkit-gradient(linear, left top, left bottom, from(#c4efff), color-stop(.48, #5fd0f5), color-stop(.52, #18a9de), to(#45c8f4));
+  background: linear-gradient(to bottom, #c4efff, #5fd0f5 48%, #18a9de 52%, #45c8f4);
+  -webkit-box-shadow: 0 6px 14px rgba(10,120,180,.35), inset 0 1px 0 rgba(255,255,255,.9);
+  box-shadow: 0 6px 14px rgba(10,120,180,.35), inset 0 1px 0 rgba(255,255,255,.9);
+}
+.btn-green {
+  color: #1c3d0d; border-color: #3f8f27;
+  background: #5cbd31;
+  background: -webkit-gradient(linear, left top, left bottom, from(#def8b0), color-stop(.48, #9adf5d), color-stop(.52, #5cbd31), to(#8bdb52));
+  background: linear-gradient(to bottom, #def8b0, #9adf5d 48%, #5cbd31 52%, #8bdb52);
+  -webkit-box-shadow: 0 6px 14px rgba(60,140,40,.32), inset 0 1px 0 rgba(255,255,255,.9);
+  box-shadow: 0 6px 14px rgba(60,140,40,.32), inset 0 1px 0 rgba(255,255,255,.9);
+}
+.btn-white {
+  color: #0a6aa4; border-color: #bfe2f4;
+  background: #ffffff;
+  background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#dceefb));
+  background: linear-gradient(to bottom, #ffffff, #dceefb);
+  -webkit-box-shadow: 0 4px 10px rgba(10,90,140,.18), inset 0 1px 0 #ffffff;
+  box-shadow: 0 4px 10px rgba(10,90,140,.18), inset 0 1px 0 #ffffff;
+}
+
+/* ============ Шкалы навыков ============ */
+.meter-row { margin: 0 0 14px; }
+.meter-name { display: block; font-weight: bold; font-size: 14px; }
+.meter-val { float: right; font-size: 13px; color: #0a6aa4; font-weight: bold; }
+.meter {
+  display: block; height: 16px; margin-top: 4px; overflow: hidden;
+  background: #d6ecf7;
+  border: 1px solid #ffffff;
+  -webkit-border-radius: 999px; border-radius: 999px;
+  -webkit-box-shadow: inset 0 2px 4px rgba(10,80,130,.25);
+  box-shadow: inset 0 2px 4px rgba(10,80,130,.25);
+}
+.meter-fill {
+  display: block; height: 100%; position: relative; overflow: hidden;
+  -webkit-border-radius: 999px; border-radius: 999px;
+  background: #58b62f;
+  background: -webkit-gradient(linear, left top, left bottom, from(#b6ef7d), color-stop(.55, #58b62f), to(#3f9e2a));
+  background: linear-gradient(to bottom, #b6ef7d, #58b62f 55%, #3f9e2a);
+}
+.meter-fill:after {
+  content: ""; position: absolute; left: 2%; right: 2%; top: 2px; height: 40%;
+  -webkit-border-radius: 999px; border-radius: 999px;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,.75)), to(rgba(255,255,255,.05)));
+  background: linear-gradient(to bottom, rgba(255,255,255,.75), rgba(255,255,255,.05));
+}
+.fill-aqua {
+  background: #25a9de;
+  background: -webkit-gradient(linear, left top, left bottom, from(#9fe4ff), color-stop(.55, #25a9de), to(#0b86c2));
+  background: linear-gradient(to bottom, #9fe4ff, #25a9de 55%, #0b86c2);
+}
+
+/* ============ Карточки проектов ============ */
+.pcard {
+  overflow: hidden;
+  margin: 0 0 14px; padding: 14px;
+  background: #ffffff;
+  background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f0f9fe));
+  background: linear-gradient(to bottom, #ffffff, #f0f9fe);
+  border: 1px solid #d3eaf7;
+  -webkit-border-radius: 14px; border-radius: 14px;
+}
+.p-ico {
+  float: left; width: 52px; height: 52px; margin: 2px 14px 6px 0;
+  line-height: 52px; text-align: center;
+  font-size: 22px; font-weight: bold; color: #ffffff;
+  text-shadow: 0 1px 3px rgba(6,60,95,.5);
+  -webkit-border-radius: 50%; border-radius: 50%;
+  border: 2px solid #ffffff;
+  -webkit-box-shadow: 0 5px 12px rgba(15,100,150,.28), inset 0 -5px 9px rgba(0,60,100,.2);
+  box-shadow: 0 5px 12px rgba(15,100,150,.28), inset 0 -5px 9px rgba(0,60,100,.2);
+}
+.ico-aqua {
+  background: #2fa4dd;
+  background: -webkit-gradient(radial, 35% 30%, 3, 35% 30%, 36, from(#ffffff), color-stop(.35, #a9e6ff), to(#0a6aa4));
+  background: radial-gradient(circle at 35% 30%, #ffffff, #a9e6ff 35%, #0a6aa4);
+}
+.ico-green {
+  background: #5cbd31;
+  background: -webkit-gradient(radial, 35% 30%, 3, 35% 30%, 36, from(#ffffff), color-stop(.35, #cdefa6), to(#337a1d));
+  background: radial-gradient(circle at 35% 30%, #ffffff, #cdefa6 35%, #337a1d);
+}
+.ico-sun {
+  background: #f5a623;
+  background: -webkit-gradient(radial, 35% 30%, 3, 35% 30%, 36, from(#ffffff), color-stop(.35, #ffe9a0), to(#cf7a08));
+  background: radial-gradient(circle at 35% 30%, #ffffff, #ffe9a0 35%, #cf7a08);
+}
+.p-body { overflow: hidden; }
+.pcard h3 { margin: 0 0 6px; font-size: 17px; color: #0a4a73; }
+.pcard p { margin: 0 0 8px; font-size: 14px; color: #28607f; }
+.pill {
+  display: inline-block; padding: 2px 10px; margin: 0 4px 4px 0;
+  font-size: 12px; font-weight: bold; color: #0a6aa4;
+  background: #e8f7ff;
+  border: 1px solid #bfe2f4;
+  -webkit-border-radius: 999px; border-radius: 999px;
+}
+.p-link { font-weight: bold; font-size: 13px; }
+
+/* ============ Форма ============ */
+label { display: block; margin: 12px 0 4px; font-weight: bold; font-size: 14px; }
+input[type="text"], textarea {
+  width: 100%; padding: 9px;
+  font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #123c57;
+  background: #ffffff;
+  border: 1px solid #9ccbe4;
+  -webkit-border-radius: 10px; border-radius: 10px;
+  -webkit-box-shadow: inset 0 2px 4px rgba(10,80,130,.12);
+  box-shadow: inset 0 2px 4px rgba(10,80,130,.12);
+}
+textarea { resize: vertical; }
+.note { font-size: 12px; color: #5b87a1; }
+
+/* ============ Футер ============ */
+.footer {
+  margin-top: 26px; padding: 18px 0 26px;
+  background: #1b6fa8;
+  background: -webkit-gradient(linear, left top, left bottom, from(#1f7ab5), to(#0c4a78));
+  background: linear-gradient(to bottom, #1f7ab5, #0c4a78);
+  border-top: 3px solid #7cc8f0;
+  color: #dff2ff; font-size: 13px;
+}
+.footer a { color: #bfe9ff; }
+.footer p { margin: 4px 0; }
+
+/* ============ Пузыри (видны только с JS) ============ */
+#bubbleCanvas { position: fixed; left: 0; top: 0; z-index: 40; display: none; }
+#bubbleBar { margin-top: 12px; }
+#bubbleHud {
+  position: fixed; left: 10px; bottom: 10px; z-index: 60;
+  padding: 8px 10px;
+  background: #ffffff;
+  background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#e2f3fd));
+  background: linear-gradient(to bottom, #ffffff, #e2f3fd);
+  border: 1px solid #bfe2f4;
+  -webkit-border-radius: 999px; border-radius: 999px;
+  -webkit-box-shadow: 0 8px 20px rgba(10,80,130,.3);
+  box-shadow: 0 8px 20px rgba(10,80,130,.3);
+  font-size: 13px; font-weight: bold; color: #0a6aa4;
+}
+.btn-mini {
+  margin-left: 6px; padding: 6px 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px; font-weight: bold; cursor: pointer;
+  -webkit-border-radius: 999px; border-radius: 999px;
+  border: 1px solid;
+}
+
+/* ============ Узкие экраны (240x320) ============ */
+@media (max-width: 420px) {
+  .topnav { float: none; display: block; margin-top: 8px; }
+  .topnav a { margin: 2px 4px 2px 0; }
+  .sky h1 { font-size: 30px; }
+  .b5 { display: none; }
+}
+@media (max-width: 300px) {
+  body { font-size: 14px; }
+  .btn { display: block; width: 100%; margin: 6px 0; }
+  .orb-lk { width: 96px; height: 96px; line-height: 92px; font-size: 32px; }
+}

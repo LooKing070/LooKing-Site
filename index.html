@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="LooKing — личный сайт: веб, ретро-эстетика и аккуратный код.">
+<title>LooKing — личный сайт</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body id="top">
+
+<!-- Глянцевая верхняя панель -->
+<div class="topbar">
+  <div class="wrap clearfix">
+    <span class="logo-orb">LK</span><span class="logo-name">LooKing</span>
+    <span class="topnav">
+      <a href="#about">Обо мне</a>
+      <a href="#skills">Навыки</a>
+      <a href="#projects">Проекты</a>
+      <a href="#contact">Контакты</a>
+    </span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- Герой: небо, солнце, облака, пузыри (всё нарисовано CSS) -->
+  <div class="panel sky">
+    <span class="sun"></span>
+    <span class="cloud c1"></span>
+    <span class="cloud c2"></span>
+    <span class="cloud c3"></span>
+    <span class="bub b1"></span>
+    <span class="bub b2"></span>
+    <span class="bub b3"></span>
+    <span class="bub b4"></span>
+    <span class="bub b5"></span>
+
+    <div class="hero-in">
+      <span class="orb-lk">LK</span>
+      <h1>LooKing</h1>
+      <p class="hero-tag">Личный сайт о вебе, ретро-эстетике и аккуратном коде</p>
+      <p>
+        <a class="btn btn-green" href="#contact">Написать мне</a>
+        <a class="btn btn-white" href="#projects">Проекты</a>
+      </p>
+      <div id="bubbleBar" style="display:none">
+        <button type="button" class="btn btn-aqua" id="btnStart">Запустить мыльные пузыри</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Обо мне -->
+  <div class="panel section" id="about">
+    <h2><span class="h-orb"></span>Обо мне</h2>
+    <p>Привет! Я — <strong>LooKing</strong>, веб-разработчик и цифровой художник. Люблю эстетику «глянцевого» интернета нулевых: небо, блики, прозрачные панели — и собираю страницы, которые выглядят нарядно, но весят считанные килобайты.</p>
+    <p>Мой принцип: сайт обязан открываться быстро где угодно — на старом телефоне, слабом планшете и медленном соединении. Поэтому здесь нет тяжёлых библиотек: только чистый HTML, CSS и совсем немного JavaScript — ради мыльных пузырей.</p>
+  </div>
+
+  <!-- Навыки -->
+  <div class="panel section" id="skills">
+    <h2><span class="h-orb"></span>Навыки</h2>
+    <div class="meter-row">
+      <span class="meter-name">HTML и CSS</span><span class="meter-val">95%</span>
+      <span class="meter"><span class="meter-fill" style="width:95%"></span></span>
+    </div>
+    <div class="meter-row">
+      <span class="meter-name">JavaScript</span><span class="meter-val">88%</span>
+      <span class="meter"><span class="meter-fill fill-aqua" style="width:88%"></span></span>
+    </div>
+    <div class="meter-row">
+      <span class="meter-name">Графика и стиль</span><span class="meter-val">82%</span>
+      <span class="meter"><span class="meter-fill fill-aqua" style="width:82%"></span></span>
+    </div>
+    <div class="meter-row">
+      <span class="meter-name">Оптимизация под слабые устройства</span><span class="meter-val">90%</span>
+      <span class="meter"><span class="meter-fill" style="width:90%"></span></span>
+    </div>
+  </div>
+
+  <!-- Проекты -->
+  <div class="panel section" id="projects">
+    <h2><span class="h-orb"></span>Проекты</h2>
+
+    <div class="pcard">
+      <span class="p-ico ico-aqua">A</span>
+      <div class="p-body">
+        <h3>AquaNotes</h3>
+        <p>Заметки в «аква»-стиле: прозрачные панели, мягкие градиенты и ничего лишнего.</p>
+        <p><span class="pill">HTML</span> <span class="pill">CSS</span> <a class="p-link" href="#">Смотреть</a></p>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <span class="p-ico ico-sun">S</span>
+      <div class="p-body">
+        <h3>SkyFM</h3>
+        <p>Страница интернет-радио в духе 2008 года: глянцевые кнопки и большой эквалайзер.</p>
+        <p><span class="pill">дизайн</span> <span class="pill">аудио</span> <a class="p-link" href="#">Смотреть</a></p>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <span class="p-ico ico-green">B</span>
+      <div class="p-body">
+        <h3>BubbleBoard</h3>
+        <p>Дашборд, где каждая метрика — пузырь: чем важнее показатель, тем крупнее шар.</p>
+        <p><span class="pill">графики</span> <span class="pill">canvas</span> <a class="p-link" href="#">Смотреть</a></p>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <span class="p-ico ico-green">G</span>
+      <div class="p-body">
+        <h3>GreenPix</h3>
+        <p>Лёгкий лендинг об экологии: одна страница, ноль изображений, мгновенная загрузка.</p>
+        <p><span class="pill">лендинг</span> <span class="pill">скорость</span> <a class="p-link" href="#">Смотреть</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Контакты -->
+  <div class="panel section" id="contact">
+    <h2><span class="h-orb"></span>Контакты</h2>
+    <p>Напишите мне напрямую: <a href="mailto:looking@example.com">looking@example.com</a> — или через форму ниже.</p>
+
+    <form action="mailto:looking@example.com" method="post" enctype="text/plain">
+      <label for="f-name">Имя</label>
+      <input type="text" id="f-name" name="Имя">
+      <label for="f-mail">E-mail</label>
+      <input type="text" id="f-mail" name="E-mail">
+      <label for="f-msg">Сообщение</label>
+      <textarea id="f-msg" name="Сообщение" rows="5"></textarea>
+      <p><button type="submit" class="btn btn-green">Отправить</button></p>
+    </form>
+    <p class="note">Форма работает без JavaScript: отправка открывает ваш почтовый клиент, письмо придёт мне напрямую. Не забудьте заменить адрес на свой.</p>
+  </div>
+
+</div>
+
+<!-- Футер: вода -->
+<div class="footer">
+  <div class="wrap">
+    <p><strong>LooKing</strong> — личный сайт. Чистый HTML и CSS, без единого фреймворка.</p>
+    <p><a href="#top">Наверх</a></p>
+  </div>
+</div>
+
+<!-- Пузыри: показываются только если есть JavaScript и canvas -->
+<canvas id="bubbleCanvas" width="320" height="240"></canvas>
+<div id="bubbleHud" style="display:none">
+  <span id="popLabel">Лопнуто: 0</span>
+  <button type="button" class="btn-mini btn-aqua" id="btnBurst">Ещё пузырей</button>
+  <button type="button" class="btn-mini btn-white" id="btnStop">Стоп</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
