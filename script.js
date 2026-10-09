@@ -1,3 +1,29 @@
+/* =========================================================
+   LooKing — script.js
+   Необязательные улучшения: мыльные пузыри + настройки страницы.
+   Сайт полностью работает и без этого файла.
+   Написано в расчёте на старые браузеры (без ES6 и без localStorage:
+   настройки хранятся в обычных cookie).
+   ========================================================= */
+
+/* Общие флаги и cookie-хранилище */
+window.lkFlags = { js: true };
+
+function lkSetCookie(name, value) {
+  try {
+    var d = new Date();
+    d.setTime(d.getTime() + 365 * 24 * 3600 * 1000);
+    document.cookie = name + "=" + value + "; expires=" + d.toUTCString() + "; path=/";
+  } catch (e) {}
+}
+function lkGetCookie(name) {
+  try {
+    var m = document.cookie.match("(^|; )" + name + "=([^;]*)");
+    return m ? m[2] : "";
+  } catch (e) { return ""; }
+}
+
+/* ================= Мыльные пузыри ================= */
 (function () {
   var canvas = document.getElementById("bubbleCanvas");
   if (!canvas || !canvas.getContext) { return; }
@@ -11,8 +37,7 @@
   var btnBurst = document.getElementById("btnBurst");
   var popLabel = document.getElementById("popLabel");
 
-  /* Показываем управление только если пузырь реально поддерживается */
-  bar.style.display = "block";
+  bar.style.display = "block"; /* показываем управление только при поддержке */
 
   var W = 0, H = 0, running = false, popped = 0;
   var bubbles = [], pops = [], drops = [];
@@ -94,6 +119,13 @@
 
   function loop(t) {
     if (!running) { return; }
+    if (!window.lkFlags.js) { /* JS выключили в настройках прямо во время полёта */
+      running = false;
+      canvas.style.display = "none";
+      hud.style.display = "none";
+      bubbles = []; pops = []; drops = [];
+      return;
+    }
     var dt = t - lastT;
     if (dt <= 0 || dt > 60) { dt = 33; }
     lastT = t;
@@ -152,7 +184,7 @@
   canvas.addEventListener("mousedown", onDown, false);
 
   function start() {
-    if (running) { return; }
+    if (running || !window.lkFlags.js) { return; }
     running = true;
     size();
     canvas.style.display = "block";
@@ -172,4 +204,63 @@
   btnStart.onclick = start;
   btnStop.onclick = stop;
   btnBurst.onclick = function () { spawn(6); };
+})();
+
+/* ================= Настройки страницы ================= */
+(function () {
+  var btn = document.getElementById("btnSettings");
+  var menu = document.getElementById("settingsMenu");
+  var bNight = document.getElementById("setNight");
+  var bJs = document.getElementById("setJs");
+  var bImg = document.getElementById("setImg");
+  if (!btn || !menu || !bNight || !bJs || !bImg) { return; }
+
+  btn.style.display = "inline-block"; /* показываем кнопку только при наличии JS */
+
+  var body = document.body;
+  var night = lkGetCookie("lk_night") === "1";
+  var nojs  = lkGetCookie("lk_nojs") === "1";
+  var noimg = lkGetCookie("lk_noimg") === "1";
+
+  function setCls(name, on) {
+    var c = " " + body.className + " ";
+    var has = c.indexOf(" " + name + " ") >= 0;
+    if (on && !has) { body.className = (body.className + " " + name).replace(/^ +/, ""); }
+    if (!on && has) { body.className = c.replace(" " + name + " ", " ").replace(/^ +| +$/g, ""); }
+  }
+
+  function canvasOk() {
+    var cv = document.getElementById("bubbleCanvas");
+    return !!(cv && cv.getContext && cv.getContext("2d"));
+  }
+
+  function refresh() {
+    setCls("night", night);
+    setCls("noimg", noimg);
+    window.lkFlags.js = !nojs;
+
+    bNight.innerHTML = "Ночная тема <span class=\"set-state\">" + (night ? "вкл" : "выкл") + "</span>";
+    bJs.innerHTML = "JavaScript <span class=\"set-state\">" + (nojs ? "отключён" : "включён") + "</span>";
+    bImg.innerHTML = "Картинки <span class=\"set-state\">" + (noimg ? "скрыты" : "показаны") + "</span>";
+
+    var bar = document.getElementById("bubbleBar");
+    var cv = document.getElementById("bubbleCanvas");
+    var hud = document.getElementById("bubbleHud");
+    if (nojs) { /* полное отключение JS-функций для пользователя */
+      if (bar) { bar.style.display = "none"; }
+      if (cv) { cv.style.display = "none"; }
+      if (hud) { hud.style.display = "none"; }
+    } else if (bar) {
+      bar.style.display = canvasOk() ? "block" : "none";
+    }
+  }
+
+  btn.onclick = function () {
+    menu.style.display = (menu.style.display === "block") ? "none" : "block";
+  };
+  bNight.onclick = function () { night = !night; lkSetCookie("lk_night", night ? "1" : "0"); refresh(); };
+  bJs.onclick = function () { nojs = !nojs; lkSetCookie("lk_nojs", nojs ? "1" : "0"); refresh(); };
+  bImg.onclick = function () { noimg = !noimg; lkSetCookie("lk_noimg", noimg ? "1" : "0"); refresh(); };
+
+  refresh(); /* применяем сохранённые настройки сразу при загрузке */
 })();

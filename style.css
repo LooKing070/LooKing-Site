@@ -82,6 +82,45 @@ a { color: #0b86c2; }
 }
 .topnav a:hover, .topnav a:focus { background: rgba(255,255,255,.28); }
 
+/* ============ Кнопка и меню настроек ============ */
+.btn-top {
+  float: right; margin-left: 8px; padding: 6px 14px;
+  font-family: Arial, Helvetica, sans-serif; font-size: 13px; font-weight: bold;
+  color: #0a4a73; cursor: pointer; text-align: center;
+  background: #ffffff;
+  background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#dceefb));
+  background: linear-gradient(to bottom, #ffffff, #dceefb);
+  border: 1px solid #ffffff;
+  -webkit-border-radius: 999px; border-radius: 999px;
+  -webkit-box-shadow: 0 3px 8px rgba(7,60,95,.35), inset 0 1px 0 #ffffff;
+  box-shadow: 0 3px 8px rgba(7,60,95,.35), inset 0 1px 0 #ffffff;
+}
+#settingsMenu {
+  clear: both; margin-top: 10px; padding: 10px;
+  background: #ffffff;
+  background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#dcf0fb));
+  background: linear-gradient(to bottom, #ffffff, #dcf0fb);
+  border: 1px solid rgba(255,255,255,.85);
+  -webkit-border-radius: 12px; border-radius: 12px;
+  -webkit-box-shadow: 0 6px 16px rgba(7,60,95,.3), inset 0 1px 0 #ffffff;
+  box-shadow: 0 6px 16px rgba(7,60,95,.3), inset 0 1px 0 #ffffff;
+}
+.set-title { display: block; margin: 0 0 8px; font-size: 13px; font-weight: bold; color: #0a5a86; }
+.set-btn {
+  display: block; width: 100%; margin: 0 0 6px; padding: 9px 12px;
+  font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold;
+  text-align: left; color: #053a58; cursor: pointer;
+  background: #cfeeff;
+  background: -webkit-gradient(linear, left top, left bottom, from(#e9f9ff), to(#bfe7fa));
+  background: linear-gradient(to bottom, #e9f9ff, #bfe7fa);
+  border: 1px solid #8fd0f0;
+  -webkit-border-radius: 10px; border-radius: 10px;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.9);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.9);
+}
+.set-btn .set-state { float: right; color: #0b86c2; }
+.noimg img { display: none !important; } /* картинки выключены — место не ломается */
+
 /* ============ Герой: небо ============ */
 .sky {
   text-align: center;
@@ -336,3 +375,52 @@ textarea { resize: vertical; }
   .btn { display: block; width: 100%; margin: 6px 0; }
   .orb-lk { width: 96px; height: 96px; line-height: 92px; font-size: 32px; }
 }
+
+/* ============ Ночная тема: Frutiger Aero после заката ============ */
+body.night { background: #0d1f38; background: -webkit-gradient(linear, left top, left bottom, from(#12283f), to(#081527)); background: linear-gradient(to bottom, #12283f, #081527); color: #cfe6f7; }
+body.night a { color: #7fd2f5; }
+body.night .topbar { background: #14335a; background: -webkit-gradient(linear, left top, left bottom, from(#27507c), color-stop(.5, #16375f), to(#0b2140)); background: linear-gradient(to bottom, #27507c, #16375f 50%, #0b2140); border-bottom-color: #061629; -webkit-box-shadow: 0 6px 16px rgba(0,0,0,.5), inset 0 1px 0 rgba(140,200,255,.25); box-shadow: 0 6px 16px rgba(0,0,0,.5), inset 0 1px 0 rgba(140,200,255,.25); }
+body.night .logo-name { color: #e6f4ff; }
+body.night .topnav a { color: #cfe9fb; }
+body.night .topnav a:hover, body.night .topnav a:focus { background: rgba(140,200,255,.22); }
+body.night .panel { background: #122c4a; background: -webkit-gradient(linear, left top, left bottom, from(#173656), to(#0e2340)); background: linear-gradient(to bottom, #173656, #0e2340); border-color: #26527f; -webkit-box-shadow: 0 10px 24px rgba(0,0,0,.45), inset 0 1px 0 rgba(140,200,255,.2); box-shadow: 0 10px 24px rgba(0,0,0,.45), inset 0 1px 0 rgba(140,200,255,.2); }
+body.night .panel:before { background: -webkit-gradient(linear, left top, left bottom, from(rgba(150,205,255,.12)), to(rgba(150,205,255,0))); background: linear-gradient(to bottom, rgba(150,205,255,.12), rgba(150,205,255,0)); }
+body.night .section h2 { color: #a9dcff; border-bottom-color: #26527f; }
+body.night .section p { color: #cfe6f7; }
+body.night .sky { background: #132f56; background: -webkit-gradient(linear, left top, left bottom, from(#1d4472), color-stop(.55, #122c52), to(#0a1c3a)); background: linear-gradient(to bottom, #1d4472, #122c52 55%, #0a1c3a); border-color: #26527f; }
+body.night .sky h1 { color: #eef7ff; text-shadow: 0 2px 0 rgba(0,10,30,.65), 0 0 18px rgba(120,200,255,.5); }
+body.night .sun { background: #e8f1fb; background: -webkit-gradient(radial, 50% 50%, 4, 50% 50%, 58, from(#f6faff), color-stop(.5, #dbe8f5), to(rgba(220,235,250,0))); background: radial-gradient(circle, #f6faff, #dbe8f5 50%, rgba(220,235,250,0)); } /* солнце становится луной */
+body.night .sky:after { /* звёзды */
+  content: ""; position: absolute; z-index: 1; top: 24px; left: 22px; width: 2px; height: 2px;
+  background: #ffffff; -webkit-border-radius: 50%; border-radius: 50%;
+  -webkit-box-shadow: 60px 34px 0 rgba(255,255,255,.75), 130px 12px 0 rgba(255,255,255,.5), 200px 58px 0 rgba(255,255,255,.8), 260px 20px 0 rgba(255,255,255,.45), 330px 66px 0 rgba(255,255,255,.6), 420px 30px 0 rgba(255,255,255,.7), 500px 72px 0 rgba(255,255,255,.5), 560px 18px 0 rgba(255,255,255,.65), 90px 96px 0 rgba(255,255,255,.4), 380px 100px 0 rgba(255,255,255,.45);
+  box-shadow: 60px 34px 0 rgba(255,255,255,.75), 130px 12px 0 rgba(255,255,255,.5), 200px 58px 0 rgba(255,255,255,.8), 260px 20px 0 rgba(255,255,255,.45), 330px 66px 0 rgba(255,255,255,.6), 420px 30px 0 rgba(255,255,255,.7), 500px 72px 0 rgba(255,255,255,.5), 560px 18px 0 rgba(255,255,255,.65), 90px 96px 0 rgba(255,255,255,.4), 380px 100px 0 rgba(255,255,255,.45);
+  pointer-events: none;
+}
+body.night .cloud, body.night .cloud:before, body.night .cloud:after { background: #2a4d77; }
+body.night .cloud { opacity: .75; }
+body.night .bub { background: #0f2b4d; background: -webkit-gradient(radial, 32% 26%, 2, 32% 26%, 46, from(rgba(200,235,255,.85)), color-stop(.35, rgba(160,210,250,.18)), to(rgba(70,130,190,.35))); background: radial-gradient(circle at 32% 26%, rgba(200,235,255,.85), rgba(160,210,250,.18) 35%, rgba(70,130,190,.35)); border-color: rgba(150,210,255,.5); }
+body.night .hero-tag { background: #12304f; background: -webkit-gradient(linear, left top, left bottom, from(#1a3f68), to(#0f2846)); background: linear-gradient(to bottom, #1a3f68, #0f2846); color: #a9dcff; border-color: #2c5a8c; }
+body.night .orb-lk { border-color: rgba(200,230,255,.85); -webkit-box-shadow: 0 14px 28px rgba(0,0,0,.55), inset 0 -10px 20px rgba(0,12,30,.5); box-shadow: 0 14px 28px rgba(0,0,0,.55), inset 0 -10px 20px rgba(0,12,30,.5); }
+body.night .btn-aqua { color: #eaffff; border-color: #0a567e; text-shadow: 0 1px 0 rgba(0,20,40,.45); background: #0d86bd; background: -webkit-gradient(linear, left top, left bottom, from(#7ed4f2), color-stop(.48, #2ba4d4), color-stop(.52, #0d86bd), to(#1f9ad0)); background: linear-gradient(to bottom, #7ed4f2, #2ba4d4 48%, #0d86bd 52%, #1f9ad0); }
+body.night .btn-green { color: #f2ffe8; border-color: #2e6b19; text-shadow: 0 1px 0 rgba(0,25,5,.45); background: #4c8a27; background: -webkit-gradient(linear, left top, left bottom, from(#a4d977), color-stop(.48, #6fae3f), color-stop(.52, #4c8a27), to(#65a53a)); background: linear-gradient(to bottom, #a4d977, #6fae3f 48%, #4c8a27 52%, #65a53a); }
+body.night .btn-white { color: #bfe6ff; border-color: #2c5a8c; text-shadow: none; background: #16375f; background: -webkit-gradient(linear, left top, left bottom, from(#1e4570), to(#102a4a)); background: linear-gradient(to bottom, #1e4570, #102a4a); }
+body.night .pcard { background: #102845; background: -webkit-gradient(linear, left top, left bottom, from(#153151), to(#0d2138)); background: linear-gradient(to bottom, #153151, #0d2138); border-color: #26527f; }
+body.night .pcard h3 { color: #a9dcff; }
+body.night .pcard p { color: #9cc2dd; }
+body.night .pill { background: #0f2b4d; color: #8fd2f2; border-color: #2c5a8c; }
+body.night .p-link { color: #7fd2f5; }
+body.night .meter { background: #0b1e35; border-color: #14304f; }
+body.night .meter-name, body.night .meter-val { color: #a9dcff; }
+body.night .h-orb { border-color: #7fd2f5; }
+body.night label { color: #cfe6f7; }
+body.night input[type="text"], body.night textarea { background: #0f2540; color: #d7ecfb; border-color: #2c5a8c; }
+body.night .note { color: #7ea6c4; }
+body.night .footer { background: #0a1c33; background: -webkit-gradient(linear, left top, left bottom, from(#0f2544), to(#050f1e)); background: linear-gradient(to bottom, #0f2544, #050f1e); border-top-color: #2c5a8c; }
+body.night #bubbleHud { background: #12304f; background: -webkit-gradient(linear, left top, left bottom, from(#1a3f68), to(#0f2846)); background: linear-gradient(to bottom, #1a3f68, #0f2846); border-color: #2c5a8c; color: #a9dcff; }
+body.night .btn-mini { color: #bfe6ff; border-color: #2c5a8c; background: #16375f; }
+body.night .btn-top { color: #cfe9fb; border-color: #2c5a8c; background: #16375f; background: -webkit-gradient(linear, left top, left bottom, from(#1e4570), to(#102a4a)); background: linear-gradient(to bottom, #1e4570, #102a4a); }
+body.night #settingsMenu { background: #12304f; background: -webkit-gradient(linear, left top, left bottom, from(#1a3f68), to(#0f2846)); background: linear-gradient(to bottom, #1a3f68, #0f2846); border-color: #2c5a8c; }
+body.night .set-title { color: #a9dcff; }
+body.night .set-btn { color: #cfe9fb; border-color: #2c5a8c; background: #1a3f68; background: -webkit-gradient(linear, left top, left bottom, from(#204a77), to(#132f52)); background: linear-gradient(to bottom, #204a77, #132f52); }
+body.night .set-btn .set-state { color: #7fd2f5; }
