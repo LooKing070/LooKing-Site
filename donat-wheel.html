@@ -1,0 +1,391 @@
+<!-- ============================================================
+     donation-wheel.html (обновлено)
+     Список «QR-коды секторов» теперь показывается ТОЛЬКО при
+     отключённом JavaScript: в <head> маленький скрипт помечает
+     <html> классом "js", а CSS скрывает список при этом классе.
+     Без JavaScript класс не добавится — список останется видимым
+     (требование ТЗ о доступности контента без JS сохранено).
+     ============================================================ -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Колесо донатов</title>
+  <!-- пометка "есть JS" до отрисовки страницы, чтобы список не мигал -->
+  <script>document.documentElement.className += " js";</script>
+  <style>
+  * { margin:0; padding:0; }
+
+  body {
+    background-color:#0b0d17; /* фолбэк для очень старых браузеров */
+    background-image:
+      radial-gradient(ellipse 60% 45% at 20% 10%, rgba(124,77,255,.18), rgba(0,0,0,0)),
+      radial-gradient(ellipse 55% 45% at 85% 85%, rgba(0,229,255,.12), rgba(0,0,0,0));
+    color:#e8eaf6;
+    font-family:Arial, Helvetica, sans-serif;
+    line-height:1.5;
+  }
+  a { color:#00e5ff; }
+
+  .back-link {
+    position:fixed; top:16px; left:16px; z-index:10;
+    display:inline-block;
+    color:#9aa3c7; text-decoration:none;
+    font-size:13px; font-weight:bold;
+    padding:9px 16px; border-radius:12px;
+    border:1px solid rgba(255,255,255,.14);
+    background:rgba(255,255,255,.05);
+  }
+  .back-link:hover { color:#ffffff; border-color:#00e5ff; }
+
+  .wrap { text-align:center; padding:76px 14px 40px; }
+
+  h1 {
+    font-size:30px; line-height:1.25; letter-spacing:1px;
+    text-transform:uppercase; color:#7ce7ff; margin:10px 0 8px;
+  }
+  /* градиентный заголовок только там, где поддерживается */
+  @supports ((-webkit-background-clip:text) or (background-clip:text)) {
+    h1 {
+      background:linear-gradient(90deg,#00e5ff,#7c4dff,#ff4dcb);
+      -webkit-background-clip:text; background-clip:text;
+      color:transparent;
+    }
+  }
+  .subtitle { color:#9aa3c7; font-size:14px; max-width:420px; margin:0 auto; }
+
+  /* ---------- колесо ---------- */
+  .wheel-area { position:relative; width:420px; max-width:88%; margin:22px auto 0; }
+
+  .wheel-glow {
+    position:absolute; top:-30px; left:-30px; right:-30px; bottom:-30px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(124,77,255,.35), rgba(0,0,0,0) 65%);
+    pointer-events:none;
+  }
+  .pointer {
+    position:absolute; top:-14px; left:50%; margin-left:-18px; z-index:5;
+    width:0; height:0;
+    border-left:18px solid rgba(0,0,0,0);
+    border-right:18px solid rgba(0,0,0,0);
+    border-top:34px solid #ff4dcb;
+  }
+  #wheel {
+    display:block; width:100%; height:auto; border-radius:50%;
+    box-shadow:0 0 0 10px rgba(255,255,255,.05),
+               0 0 60px rgba(0,229,255,.15),
+               0 30px 80px rgba(0,0,0,.6);
+  }
+  .hub {
+    position:absolute; top:50%; left:50%;
+    width:84px; height:84px; margin:-42px 0 0 -42px;
+    border-radius:50%; z-index:4; cursor:pointer;
+    background:linear-gradient(145deg,#1a1f35,#0d1020);
+    border:3px solid rgba(255,255,255,.18);
+    color:#00e5ff; font-size:12px; font-weight:bold; letter-spacing:1px;
+    line-height:78px; text-align:center;
+    box-shadow:0 8px 30px rgba(0,0,0,.6);
+  }
+  .hub:hover { border-color:#00e5ff; }
+  .hub.off { color:#556; cursor:default; border-color:rgba(255,255,255,.1); }
+
+  .spin-btn {
+    display:inline-block; margin-top:30px;
+    font-size:16px; font-weight:bold; letter-spacing:.5px;
+    color:#0b0d17; background:linear-gradient(90deg,#00e5ff,#7c4dff);
+    border:none; border-radius:16px; padding:16px 48px; cursor:pointer;
+    box-shadow:0 10px 40px rgba(0,229,255,.35);
+  }
+  .spin-btn:hover { box-shadow:0 14px 50px rgba(124,77,255,.55); }
+  .spin-btn[disabled] { opacity:.5; cursor:default; }
+
+  /* ---------- список секторов: виден ТОЛЬКО без JS ---------- */
+  /* скрипт в <head> добавляет класс "js" на <html>, и список скрыт */
+  html.js #qrList { display:none; }
+
+  #qrList h2 {
+    font-size:17px; color:#ffffff; max-width:420px; margin:34px auto 12px;
+    border-top:2px solid #2a2f52; padding-top:18px; text-align:center;
+  }
+  .sector {
+    max-width:300px; margin:0 auto 12px; padding:12px; text-align:center;
+    border:1px solid #2a2f52; border-radius:14px; background:#11142a;
+  }
+  .sector b { display:block; font-size:16px; color:#ffffff; }
+  .sector span { display:block; font-size:13px; color:#9aa3c7; margin:2px 0 8px; }
+  .sector img { background:#ffffff; padding:8px; border-radius:10px; }
+
+  /* ---------- модалка результата ---------- */
+  #overlay {
+    display:none; position:fixed; top:0; left:0; right:0; bottom:0; z-index:50;
+    background:rgba(5,7,15,.9); overflow:auto; padding:40px 14px;
+  }
+  .modal {
+    max-width:340px; margin:0 auto; text-align:center;
+    background:linear-gradient(160deg,#161b30,#0d1020);
+    border:1px solid rgba(255,255,255,.14); border-radius:22px;
+    padding:28px 22px 24px;
+    box-shadow:0 30px 90px rgba(0,0,0,.7), 0 0 60px rgba(124,77,255,.25);
+  }
+  .badge {
+    display:inline-block; font-size:11px; font-weight:bold; letter-spacing:2px;
+    text-transform:uppercase; color:#0b0d17;
+    background:linear-gradient(90deg,#00e5ff,#7c4dff);
+    padding:6px 14px; border-radius:99px; margin-bottom:12px;
+  }
+  .modal h3 { font-size:24px; color:#ffffff; margin:4px 0; }
+  .modal .amount { font-size:14px; color:#9aa3c7; margin:0 0 16px; }
+  .qr-frame {
+    width:220px; margin:0 auto 16px; background:#ffffff;
+    border-radius:16px; padding:12px;
+    box-shadow:0 0 40px rgba(0,229,255,.25);
+  }
+  .qr-frame img { display:block; background:#ffffff; }
+  .modal .hint { font-size:13px; color:#9aa3c7; margin:0 0 18px; }
+  .close-btn {
+    font-size:14px; font-weight:bold; color:#e8eaf6;
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.2);
+    border-radius:12px; padding:12px 36px; cursor:pointer;
+  }
+  .close-btn:hover { border-color:#00e5ff; background:rgba(0,229,255,.15); }
+
+  .note { font-size:13px; color:#9aa3c7; margin-top:10px; }
+
+  @media (max-width:360px) {
+    h1 { font-size:22px; }
+    .back-link { top:10px; left:10px; padding:7px 12px; }
+    .hub { width:64px; height:64px; margin:-32px 0 0 -32px; line-height:58px; font-size:10px; }
+    .spin-btn { padding:14px 30px; }
+  }
+</style>
+</head>
+<body>
+
+<a class="back-link" href="index.html">&larr; На главную</a>
+
+<div class="wrap">
+  <h1>Колесо донатов</h1>
+  <p class="subtitle">Крутите колесо — какой сектор выпадет, такой QR-код для доната и появится. Удачи!</p>
+
+  <!-- колесо (только при включённом JS) -->
+  <div id="wheelbox" style="display:none;">
+    <div class="wheel-area">
+      <div class="wheel-glow"></div>
+      <div class="pointer"></div>
+      <canvas id="wheel" width="420" height="420">
+        Ваш браузер не поддерживает canvas — включите JavaScript или посмотрите список секторов ниже.
+      </canvas>
+      <div class="hub" id="hub">КРУТИ</div>
+    </div>
+    <button type="button" class="spin-btn" id="spinBtn">Раскрутить колесо</button>
+    <p class="note" id="spinNote">&nbsp;</p>
+  </div>
+
+  <noscript>
+    <p class="note">JavaScript отключён — колесо недоступно, но все QR-коды для доната перечислены ниже.</p>
+  </noscript>
+
+  <!-- список QR: виден только без JavaScript -->
+  <div id="qrList">
+    <h2>QR-коды секторов</h2>
+
+    <div class="sector"><b>50 &#8381;</b><span>Донат 50 рублей</span>
+      <img src="images/qr_50.png" width="180" height="180" alt="QR-код доната 50 рублей"></div>
+
+    <div class="sector"><b>100 &#8381;</b><span>Донат 100 рублей</span>
+      <img src="images/qr_100.png" width="180" height="180" alt="QR-код доната 100 рублей"></div>
+
+    <div class="sector"><b>250 &#8381;</b><span>Донат 250 рублей</span>
+      <img src="images/qr_250.png" width="180" height="180" alt="QR-код доната 250 рублей"></div>
+
+    <div class="sector"><b>500 &#8381;</b><span>Донат 500 рублей</span>
+      <img src="images/qr_500.png" width="180" height="180" alt="QR-код доната 500 рублей"></div>
+
+    <div class="sector"><b>750 &#8381;</b><span>Донат 750 рублей</span>
+      <img src="images/qr_750.png" width="180" height="180" alt="QR-код доната 750 рублей"></div>
+
+    <div class="sector"><b>1000 &#8381;</b><span>Донат 1000 рублей</span>
+      <img src="images/qr_1000.png" width="180" height="180" alt="QR-код доната 1000 рублей"></div>
+
+    <div class="sector"><b>2500 &#8381;</b><span>Донат 2500 рублей</span>
+      <img src="images/qr_2500.png" width="180" height="180" alt="QR-код доната 2500 рублей"></div>
+
+    <div class="sector"><b>5000 &#8381;</b><span>Донат 5000 рублей</span>
+      <img src="images/qr_5000.png" width="180" height="180" alt="QR-код доната 5000 рублей"></div>
+  </div>
+</div>
+
+<!-- модалка результата -->
+<div id="overlay">
+  <div class="modal" id="modalCard">
+    <span class="badge">Вам выпало</span>
+    <h3 id="resTitle">—</h3>
+    <p class="amount" id="resAmount">—</p>
+    <div class="qr-frame">
+      <img id="resQr" src="images/qr_100.png" width="196" height="196" alt="QR-код для доната">
+    </div>
+    <p class="hint">Отсканируйте QR-код камерой телефона,<br>чтобы отправить донат.</p>
+    <button type="button" class="close-btn" id="closeBtn">Отлично!</button>
+  </div>
+</div>
+
+<script>
+/* ES5, без внешних зависимостей; колесо — улучшение к статичному контенту. */
+(function () {
+  var SECTORS = [
+    { label:"50 \u20BD",   amount:"\u0414\u043E\u043D\u0430\u0442 50 \u0440\u0443\u0431\u043B\u0435\u0439",   qr:"images/qr_50.png",   color:"#7c4dff" },
+    { label:"100 \u20BD",  amount:"\u0414\u043E\u043D\u0430\u0442 100 \u0440\u0443\u0431\u043B\u0435\u0439",  qr:"images/qr_100.png",  color:"#00b8d4" },
+    { label:"250 \u20BD",  amount:"\u0414\u043E\u043D\u0430\u0442 250 \u0440\u0443\u0431\u043B\u0435\u0439",  qr:"images/qr_250.png",  color:"#ff4dcb" },
+    { label:"500 \u20BD",  amount:"\u0414\u043E\u043D\u0430\u0442 500 \u0440\u0443\u0431\u043B\u0435\u0439",  qr:"images/qr_500.png",  color:"#00e676" },
+    { label:"750 \u20BD",  amount:"\u0414\u043E\u043D\u0430\u0442 750 \u0440\u0443\u0431\u043B\u0435\u0439",  qr:"images/qr_750.png",  color:"#ff9100" },
+    { label:"1000 \u20BD", amount:"\u0414\u043E\u043D\u0430\u0442 1000 \u0440\u0443\u0431\u043B\u0435\u0439", qr:"images/qr_1000.png", color:"#e040fb" },
+    { label:"2500 \u20BD", amount:"\u0414\u043E\u043D\u0430\u0442 2500 \u0440\u0443\u0431\u043B\u0435\u0439", qr:"images/qr_2500.png", color:"#2979ff" },
+    { label:"5000 \u20BD", amount:"\u0414\u043E\u043D\u0430\u0442 5000 \u0440\u0443\u0431\u043B\u0435\u0439", qr:"images/qr_5000.png", color:"#ffd600" }
+  ];
+  var N = SECTORS.length;
+  var STEP = (Math.PI * 2) / N;
+
+  var box = document.getElementById("wheelbox");
+  var canvas = document.getElementById("wheel");
+  var ctx = canvas && canvas.getContext ? canvas.getContext("2d") : null;
+  var hub = document.getElementById("hub");
+  var btn = document.getElementById("spinBtn");
+  var note = document.getElementById("spinNote");
+  var overlay = document.getElementById("overlay");
+  var resTitle = document.getElementById("resTitle");
+  var resAmount = document.getElementById("resAmount");
+  var resQr = document.getElementById("resQr");
+  var closeBtn = document.getElementById("closeBtn");
+
+  var rotation = 0;
+  var spinning = false;
+  var audioCtx = null;
+
+  function show(el) { el.style.display = "block"; }
+  function hide(el) { el.style.display = "none"; }
+
+  function drawWheel() {
+    var R = canvas.width / 2, i, start, end, a;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (i = 0; i < N; i = i + 1) {
+      start = rotation + i * STEP; end = start + STEP;
+      ctx.beginPath(); ctx.moveTo(R, R);
+      ctx.arc(R, R, R - 6, start, end); ctx.closePath();
+      ctx.fillStyle = SECTORS[i].color; ctx.fill();
+      ctx.strokeStyle = "rgba(11,13,23,.55)"; ctx.lineWidth = 3; ctx.stroke();
+    }
+    for (i = 0; i < N; i = i + 1) {
+      ctx.save();
+      ctx.translate(R, R);
+      ctx.rotate(rotation + i * STEP + STEP / 2);
+      ctx.textAlign = "right";
+      ctx.fillStyle = "#0b0d17";
+      ctx.font = "bold 20px Arial, Helvetica, sans-serif";
+      ctx.fillText(SECTORS[i].label, R - 26, 7);
+      ctx.restore();
+    }
+    ctx.beginPath(); ctx.arc(R, R, R - 6, 0, Math.PI * 2);
+    ctx.strokeStyle = "rgba(255,255,255,.15)"; ctx.lineWidth = 10; ctx.stroke();
+    for (i = 0; i < 24; i = i + 1) {
+      a = (i / 24) * Math.PI * 2 + rotation * 0.5;
+      ctx.beginPath();
+      ctx.arc(R + Math.cos(a) * (R - 6), R + Math.sin(a) * (R - 6), 3.5, 0, Math.PI * 2);
+      ctx.fillStyle = (i % 2 === 0) ? "#00e5ff" : "#ff4dcb";
+      ctx.fill();
+    }
+  }
+
+  function tick() {
+    try {
+      if (!audioCtx) { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+      var osc = audioCtx.createOscillator();
+      var gain = audioCtx.createGain();
+      osc.type = "square"; osc.frequency.value = 1400;
+      gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.05);
+      osc.connect(gain); gain.connect(audioCtx.destination);
+      osc.start(); osc.stop(audioCtx.currentTime + 0.05);
+    } catch (e) { /* звук недоступен — молча пропускаем */ }
+  }
+
+  function showResult(i) {
+    resTitle.innerHTML = SECTORS[i].label;
+    resAmount.innerHTML = SECTORS[i].amount;
+    resQr.src = SECTORS[i].qr;
+    show(overlay);
+  }
+
+  function finishSpin(i) {
+    spinning = false;
+    btn.disabled = false;
+    hub.className = "hub";
+    note.innerHTML = "\u041C\u043E\u0436\u043D\u043E \u043A\u0440\u0443\u0442\u0438\u0442\u044C \u0441\u043D\u043E\u0432\u0430.";
+    showResult(i);
+  }
+
+  function spin() {
+    if (spinning) { return; }
+    spinning = true;
+    btn.disabled = true;
+    hub.className = "hub off";
+    note.innerHTML = "\u041A\u043E\u043B\u0435\u0441\u043E \u043A\u0440\u0443\u0442\u0438\u0442\u0441\u044F...";
+
+    var win = Math.floor(Math.random() * N);
+
+    if (!ctx) { window.setTimeout(function () { finishSpin(win); }, 400); return; }
+
+    var turns = 5 + Math.floor(Math.random() * 3);
+    var jitter = (Math.random() - 0.5) * STEP * 0.7;
+    var target = -Math.PI / 2 - (win * STEP + STEP / 2) + jitter;
+    var norm = rotation % (Math.PI * 2); if (norm < 0) { norm += Math.PI * 2; }
+    var tNorm = target % (Math.PI * 2); if (tNorm < 0) { tNorm += Math.PI * 2; }
+    var delta = tNorm - norm; if (delta < 0) { delta += Math.PI * 2; }
+    var total = turns * Math.PI * 2 + delta;
+
+    var startRot = rotation;
+    var duration = 4200;
+    var t0 = new Date().getTime();
+    var lastSec = -1;
+
+    function frame() {
+      var p = (new Date().getTime() - t0) / duration;
+      if (p >= 1) { p = 1; }
+      rotation = startRot + total * (1 - Math.pow(1 - p, 3.2));
+      drawWheel();
+      var sec = Math.floor(((( -Math.PI / 2 - rotation) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) / STEP);
+      if (sec !== lastSec) { lastSec = sec; tick(); }
+      if (p < 1) {
+        if (window.requestAnimationFrame) { window.requestAnimationFrame(frame); }
+        else { window.setTimeout(frame, 30); }
+      } else { finishSpin(win); }
+    }
+    if (window.requestAnimationFrame) { window.requestAnimationFrame(frame); }
+    else { window.setTimeout(frame, 30); }
+  }
+
+  function closeResult() { hide(overlay); }
+
+  function on(el, ev, fn) {
+    if (el.addEventListener) { el.addEventListener(ev, fn, false); }
+    else if (el.attachEvent) { el.attachEvent("on" + ev, fn); }
+  }
+
+  show(box);
+  if (ctx) { drawWheel(); }
+  on(btn, "click", spin);
+  on(hub, "click", spin);
+  on(closeBtn, "click", closeResult);
+  on(overlay, "click", function (e) {
+    e = e || window.event;
+    if (e.target === overlay) { closeResult(); }
+  });
+  on(document, "keydown", function (e) {
+    e = e || window.event;
+    if ((e.keyCode || e.which) === 27) { closeResult(); }
+  });
+})();
+</script>
+</body>
+</html>
