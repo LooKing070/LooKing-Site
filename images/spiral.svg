@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 987 610">
+    <title>Золотое сечение</title>
+    <rect x="0" y="0" width="987" height="610" fill="#000"/>
+
+    <!-- 9 квадратов, каждый со своим цветом -->
+    <rect x="0"   y="0"   width="610" height="610" fill="#c0392b" fill-opacity="0.30" stroke="#c0392b"/>
+    <rect x="610" y="0"   width="377" height="377" fill="#e67e22" fill-opacity="0.30" stroke="#e67e22"/>
+    <rect x="754" y="377" width="233" height="233" fill="#f1c40f" fill-opacity="0.25" stroke="#f1c40f"/>
+    <rect x="610" y="466" width="144" height="144" fill="#2ecc71" fill-opacity="0.30" stroke="#2ecc71"/>
+    <rect x="610" y="377" width="89"  height="89"  fill="#1abc9c" fill-opacity="0.35" stroke="#1abc9c"/>
+    <rect x="699" y="377" width="55"  height="55"  fill="#3498db" fill-opacity="0.35" stroke="#3498db"/>
+    <rect x="720" y="432" width="34"  height="34"  fill="#9b59b6" fill-opacity="0.40" stroke="#9b59b6"/>
+    <rect x="699" y="445" width="21"  height="21"  fill="#e84393" fill-opacity="0.40" stroke="#e84393"/>
+    <rect x="699" y="432" width="13"  height="13"  fill="#95a5a6" fill-opacity="0.45" stroke="#95a5a6"/>
+
+    <!-- золотая спираль поверх квадратов -->
+    <path d="M0 610
+    A610 610 0 0 1 610 0   A377 377 0 0 1 987 377
+    A233 233 0 0 1 754 610 A144 144 0 0 1 610 466
+    A89 89 0 0 1 699 377   A55 55 0 0 1 754 432
+    A34 34 0 0 1 720 466   A21 21 0 0 1 699 445
+    A13 13 0 0 1 712 432"
+          fill="none" stroke="#ffd700" stroke-width="3"/>
+
+    <!-- 4 точки, каждая точно на спирали (пифагоровы тройки) -->
+    <circle cx="244" cy="122" r="4" fill="#fff" stroke="#000"/>
+    <circle cx="619" cy="427" r="4" fill="#fff" stroke="#000"/>
+    <circle cx="732" cy="388" r="4" fill="#fff" stroke="#000"/>
+    <circle cx="859" cy="585" r="4" fill="#fff" stroke="#000"/>
+
+    <!-- числа Фибоначчи (декор) -->
+    <text x="305" y="310" font-family="Arial,sans-serif" font-size="28" fill="#777" text-anchor="middle">610</text>
+    <text x="798" y="194" font-family="Arial,sans-serif" font-size="28" fill="#777" text-anchor="middle">377</text>
+    <text x="870" y="500" font-family="Arial,sans-serif" font-size="28" fill="#777" text-anchor="middle">233</text>
+</svg>
